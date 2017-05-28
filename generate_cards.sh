@@ -31,7 +31,7 @@ rowSize=20
 
 while read -r line
 do
-  text=$(echo $line | cut -d\; -f1)
+  text=$(echo $line | sed -E s/\'/\\\\\'/g | cut -d\; -f1)
   pick=$(echo $line | cut -d\; -f2 -s)
   draw=$(echo $line | cut -d\; -f3 -s)
 
