@@ -54,7 +54,7 @@ do
   fi
 
   posCol=$((cardWidth*col))
-  posRow=$((cardHeight*row))
+  posRow=$((cardHeight*row+lineSize))
 
   convert -stroke $fontColor -draw "fill $cardColor rectangle $((posCol+lineSize)),$((posRow)) $((posCol+lineSize+cardWidth)),$((posRow+cardHeight))" "$outputFile" "$outputFile"
 
