@@ -1,23 +1,22 @@
-1,Como perdi minha virgindade?
-1,Por que não consigo dormir a noite?
-1,Que cheiro é esse?
-1,Eu tenho 99 problemas mas ____________ não é um deles.
-1,Talvez ela nasceu com isso. Talvez isso é _______________.
-1,Qual será o próximo brinquedo do McLanche Feliz?
-1,Aqui está a igreja. Aqui está o campanário. Abra as portas e aqui estará ___________.
-1,É uma pena que as crianças de hoje estejam envolvidas com _____________.
-1,Hoje na Sonia Abrãao: "Socorro! Meu filho é ___________!"
-1,A medicina alternativa está agora abrangendo os poderes curativos de ___________.
-2,E o Oscar de ___________ vai para ___________.
-1,Que som é esse?
-1,O que fez meu relacionamento acabar?
-1,No novo reality show da MTV estrelam oito celebridades vivendo com ___________.
-1,Eu bebo para esquecer ____________.
-1,Desculpe, professor, mas eu não pude fazer o dever de casa por causa de __________.
-1,Qual o prazer proibido do Batman?
-1,Esta é a maneira que o mundo acaba \ Não com uma explosão mas com _____________.
-1,Qual é o melhor amigo de uma garota?
-1,A Infraero agora proíbe _____________ nos aviões.
-1,__________________. Essa é a maneira que eu quero morrer.
-2,Para meu próximo truque, eu irei puxar __________ de __________.
-
+Como perdi minha virgindade?
+Por que não consigo dormir a noite?
+Que cheiro é esse?
+Eu tenho 99 problemas mas ____________ não é um deles.
+Talvez ela nasceu com isso. Talvez isso é _______________.
+Qual será o próximo brinquedo do McLanche Feliz?
+Aqui está a igreja. Aqui está o campanário. Abra as portas e aqui estará ___________.
+É uma pena que as crianças de hoje estejam envolvidas com _____________.
+Hoje na Sonia Abrãao: "Socorro! Meu filho é ___________!"
+A medicina alternativa está agora abrangendo os poderes curativos de ___________.
+E o Oscar de ___________ vai para ___________.;2
+Que som é esse?
+O que fez meu relacionamento acabar?
+No novo reality show da MTV estrelam oito celebridades vivendo com ___________.
+Eu bebo para esquecer ____________.
+Desculpe, professor, mas eu não pude fazer o dever de casa por causa de __________.
+Qual o prazer proibido do Batman?
+Esta é a maneira que o mundo acaba \ Não com uma explosão mas com _____________.
+Qual é o melhor amigo de uma garota?
+A Infraero agora proíbe _____________ nos aviões.
+__________________. Essa é a maneira que eu quero morrer.
+Para meu próximo truque, eu irei puxar __________ de __________.;2
