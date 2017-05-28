@@ -96,7 +96,8 @@ do
     fi
   fi
 
-  convert -weight normal -pointSize 10 -fill $fontColor -draw "text $((currentCol+33)),$((bottomRow+64)) '$bottomText'" "$outputFile" "$outputFile"
+  convert -draw "image over $((posCol+42)),$((posRow-row+215)),0,0 'img/CAH_ico.png'" \
+    -weight normal -pointSize 10 -fill $fontColor -draw "text $((currentCol+33)),$((bottomRow+64)) '$bottomText'" "$outputFile" "$outputFile"
 
   echo "page $page:$text"
   col=$((col + 1))
