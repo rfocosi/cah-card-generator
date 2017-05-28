@@ -31,24 +31,21 @@ rowSize=20
 
 while read -r line
 do
-    pick=`echo ${line} | perl -pe "s/.+;//g"`
-    line=`echo ${line} | perl -pe "s/;.*//g"`
+    text=$(echo $line | cut -d\; -f1)
+    pick=$(echo $line | cut -d\; -f2 -s)    
 
-    if [ "$col" == "4" ]
-    then
+    if [ "$col" == "4" ]; then
        row=$((row+1))
        col=0
     fi
-    if [ "$row" == "5" ]
-    then
+    if [ "$row" == "5" ]; then
        page=$((page + 1))
        row=0
        newPage=1
     fi
 
     outputFile="$generatedFolder/$outputFileName-$page.jpg"
-    if [ "$newPage" == "1" ]
-    then
+    if [ "$newPage" == "1" ]; then
       cp $sourceImage $outputFile
       newPage=0
     fi
@@ -62,9 +59,8 @@ do
     textRows=()
     while [ $more -eq 1 ]; do
       more=0
-      textRows[l]=${line:${lp}:lineSize}
-      if [ "${#textRows[l]}" -eq "$lineSize" ]
-      then
+      textRows[l]=${text:${lp}:lineSize}
+      if [ "${#textRows[l]}" -eq "$lineSize" ]; then
          textRows[l]=`echo ${textRows[l]} | perl -pe 's/\s[^\s]+$//g'`
          lp=$((1+$lp+${#textRows[l]}))
          more=1
@@ -72,16 +68,23 @@ do
       l=$((l+1))
     done
 
-    currentLine=$((posRow+85))
+    currentCol=$((posCol+42))
+    currentRow=$((posRow+85))
     for textRow in "${textRows[@]}"; do
-      convert -weight bold -pointsize $((pointSize)) -fill $fontColor -draw "text $((posCol+42)),$((currentLine)) '$textRow'" "$outputFile" "$outputFile"
-      currentLine=$((currentLine+rowSize))
+      convert -weight bold -pointsize $((pointSize)) -fill $fontColor \
+        -draw "text $currentCol,$currentRow '$textRow'" "$outputFile" "$outputFile"
+      currentRow=$((currentRow+rowSize))
     done
 
-    if [ "$pick" == "2" ]
-    then
-       convert -draw "image over $((posCol+42)),$((posRow-row+215)),0,0 'img/CAH_black_pick2.jpg'" "$outputFile" "$outputFile"
+    bottomRow=$((posRow+165-row))
+    if [ ! "$pick" == "" ]; then
+      convert -fill white -draw "circle $((currentCol+158)),$((bottomRow+60)) $((currentCol+153)),$((bottomRow+50))" \
+        -weight bold -pointSize 15 -fill white -draw "text $((currentCol+105)),$((bottomRow+66)) 'PICK'" \
+        -weight bold -pointSize 18 -fill black -draw "text $((currentCol+154)),$((bottomRow+66)) '$pick'" \
+        -weight normal -pointSize 10 -fill white -draw "text $((currentCol+33)),$((bottomRow+64)) 'CAH'" "$outputFile" "$outputFile"
+    else
+      convert -weight normal -pointSize 10 -fill $fontColor -draw "text $((currentCol+33)),$((bottomRow+64)) 'Cards Against Humanity'" "$outputFile" "$outputFile"
     fi
-    echo "page $page:$line"
+    echo "page $page:$text"
     col=$((col + 1))
 done < "$inputFile"
