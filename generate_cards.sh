@@ -21,15 +21,18 @@ fi
 generatedFolder="generated/$cardType"
 mkdir -p "$generatedFolder"
 outputFileName="CAH_page"
-page=1
-row=0
-col=0
-newPage=1
+pageWidth=850
+pageHeight=1100
 lineSize=22
 pointSize=15
 rowSize=20
 cardWidth=200
 cardHeight=260
+
+page=1
+row=0
+col=0
+newPage=1
 
 while read -r line
 do
@@ -49,7 +52,7 @@ do
 
   outputFile="$generatedFolder/$outputFileName-$page.jpg"
   if [ "$newPage" == "1" ]; then
-    convert -size 850x1100 xc:$cardColor "$outputFile"
+    convert -size "${pageWidth}x${pageHeight}" xc:$cardColor "$outputFile"
     newPage=0
   fi
 
@@ -87,21 +90,21 @@ do
     if [ "$pick" != "" ]; then
       bottomText="CAH"
       convert -fill white -draw "circle $((currentCol+158)),$((bottomRow+60)) $((currentCol+153)),$((bottomRow+50))" \
-        -weight bold -pointSize 15 -fill white -draw "text $((currentCol+105)),$((bottomRow+66)) 'PICK'" \
-        -weight bold -pointSize 18 -fill black -draw "text $((currentCol+154)),$((bottomRow+66)) '$pick'" \
+        -weight bold -pointSize $((pointSize)) -fill white -draw "text $((currentCol+105)),$((bottomRow+66)) 'PICK'" \
+        -weight bold -pointSize $((pointSize+3)) -fill black -draw "text $((currentCol+154)),$((bottomRow+66)) '$pick'" \
         "$outputFile" "$outputFile"
     fi
     if [ "$draw" != "" ]; then
       bottomText="CAH"
       convert -fill white -draw "circle $((currentCol+158)),$((bottomRow+30)) $((currentCol+153)),$((bottomRow+20))" \
-      -weight bold -pointSize 15 -fill white -draw "text $((currentCol+95)),$((bottomRow+36)) 'DRAW'" \
-      -weight bold -pointSize 18 -fill black -draw "text $((currentCol+154)),$((bottomRow+36)) '$draw'" \
+      -weight bold -pointSize $((pointSize)) -fill white -draw "text $((currentCol+95)),$((bottomRow+36)) 'DRAW'" \
+      -weight bold -pointSize $((pointSize+3)) -fill black -draw "text $((currentCol+154)),$((bottomRow+36)) '$draw'" \
       "$outputFile" "$outputFile"
     fi
   fi
 
   convert -draw "image over $((posCol+42)),$((bottomRow+(lineSize*2))),0,0 'img/CAH_ico.png'" \
-    -weight normal -pointSize 10 -fill $fontColor -draw "text $((currentCol+33)),$((bottomRow+(rowSize*3))) '$bottomText'" "$outputFile" "$outputFile"
+    -weight normal -pointSize $((pointSize-5)) -fill $fontColor -draw "text $((currentCol+33)),$((bottomRow+(rowSize*3))) '$bottomText'" "$outputFile" "$outputFile"
 
   echo "page $page:$text"
   col=$((col + 1))
