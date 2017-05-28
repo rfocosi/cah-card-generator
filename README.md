@@ -1,9 +1,17 @@
 Running CAH Generator
 =====================
 
-First, be sure you already has installed Imagemagick and GhostScript:
+First, be sure you already has installed Imagemagick:
 
-sudo apt-get install imagemagick ghostscript
+- Ubuntu/Debian
+```
+sudo apt-get install imagemagick
+```
+
+- MacOS
+```
+brew install imagemagick
+```
 
 Card Files Format
 =================
