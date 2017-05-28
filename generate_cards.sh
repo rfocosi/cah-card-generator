@@ -7,10 +7,10 @@ if [ "$inputFile" == "" ]; then
 fi
 
 if [ "$cardType" == "black" ]; then
-  sourceImage="CAH_BlankBlackCards.jpg"
+  sourceImage="img/CAH_BlankBlackCards.jpg"
   fontColor="white"
 elif [ "$cardType" == "white" ]; then
-  sourceImage="CAH_BlankWhiteCards.jpg"
+  sourceImage="img/CAH_BlankWhiteCards.jpg"
   fontColor="black"
 else
   echo "Usage:"
@@ -45,12 +45,12 @@ do
        row=0
        newPage=1
     fi
+
     outputFile="$generatedFolder/$outputFileName-$page.jpg"
-    sourceFile="$outputFile"
     if [ "$newPage" == "1" ]
     then
-       sourceFile="$sourceImage"
-       newPage=0
+      cp $sourceImage $outputFile
+      newPage=0
     fi
 
     posRow=$((200*row))
@@ -74,14 +74,13 @@ do
 
     currentLine=$((posRow+85))
     for textRow in "${textRows[@]}"; do
-      convert -weight bold -pointsize $((pointSize)) -fill $fontColor -draw "text $((posCol+42)),$((currentLine)) '$textRow'" "$sourceFile" "$outputFile"
-      sourceFile="$outputFile"
+      convert -weight bold -pointsize $((pointSize)) -fill $fontColor -draw "text $((posCol+42)),$((currentLine)) '$textRow'" "$outputFile" "$outputFile"
       currentLine=$((currentLine+rowSize))
     done
 
     if [ "$pick" == "2" ]
     then
-       convert -draw "image over $((posCol+42)),$((posRow-row+215)),0,0 'CAH_black_pick2.jpg'" "$outputFile" "$outputFile"
+       convert -draw "image over $((posCol+42)),$((posRow-row+215)),0,0 'img/CAH_black_pick2.jpg'" "$outputFile" "$outputFile"
     fi
     echo "page $page:$line"
     col=$((col + 1))
