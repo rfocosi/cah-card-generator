@@ -7,11 +7,9 @@ if [ "$inputFile" == "" ]; then
 fi
 
 if [ "$cardType" == "black" ]; then
-  sourceImage="img/CAH_BlankBlackCards.jpg"
   fontColor="white"
   cardColor=#231f20
 elif [ "$cardType" == "white" ]; then
-  sourceImage="img/CAH_BlankWhiteCards.jpg"
   fontColor="black"
   cardColor=#ffffff
 else
