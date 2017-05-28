@@ -62,7 +62,7 @@ do
     more=0
     textRows[l]=${text:${lp}:lineSize}
     if [ "${#textRows[l]}" -eq "$lineSize" ]; then
-      textRows[l]=`echo ${textRows[l]} | perl -pe 's/\s[^\s]+$//g'`
+      textRows[l]=`echo ${textRows[l]} | sed -E 's/ [^ ]+$//'`
       lp=$((1+$lp+${#textRows[l]}))
       more=1
     fi

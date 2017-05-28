@@ -1,11 +1,23 @@
 Running CAH Generator
 =====================
 
-First, be sure you already has installed Imagemagick package:
+First, be sure you already has installed Imagemagick and GhostScript:
 
-sudo apt-get install imagemagick
+sudo apt-get install imagemagick ghostscript
 
-Also, the scripts requires GhostScript and Perl.
+Card Files Format
+=================
+
+```
+{text};{pick};{draw}
+```
+Ps.: The fields `{pick}` and `{draw}` are optional
+
+Examples:
+```
+I went from _________ to _________________, all thanks to ____________________.;3;2
+Lovin' you is easy 'cause you're ______________.
+```
 
 Usage
 =====
