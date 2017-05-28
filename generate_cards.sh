@@ -9,9 +9,11 @@ fi
 if [ "$cardType" == "black" ]; then
   sourceImage="img/CAH_BlankBlackCards.jpg"
   fontColor="white"
+  cardColor=#231f20
 elif [ "$cardType" == "white" ]; then
   sourceImage="img/CAH_BlankWhiteCards.jpg"
   fontColor="black"
+  cardColor=#ffffff
 else
   echo "Usage:"
   echo "generate_cards.sh {black|white} {csv-file}"
@@ -28,6 +30,8 @@ newPage=1
 lineSize=22
 pointSize=15
 rowSize=20
+cardWidth=200
+cardHeight=260
 
 while read -r line
 do
@@ -39,7 +43,7 @@ do
     row=$((row+1))
     col=0
   fi
-  if [ "$row" == "5" ]; then
+  if [ "$row" == "4" ]; then
     page=$((page + 1))
     row=0
     newPage=1
@@ -51,8 +55,10 @@ do
     newPage=0
   fi
 
-  posRow=$((200*row))
-  posCol=$((200*col))
+  posCol=$((cardWidth*col))
+  posRow=$((cardHeight*row))
+
+  convert -stroke $fontColor -draw "fill $cardColor rectangle $((posCol+lineSize)),$((posRow)) $((posCol+lineSize+cardWidth)),$((posRow+cardHeight))" "$outputFile" "$outputFile"
 
   l=0
   lp=0
@@ -69,8 +75,8 @@ do
     l=$((l+1))
   done
 
-  currentCol=$((posCol+42))
-  currentRow=$((posRow+85))
+  currentCol=$((posCol+(rowSize*2)))
+  currentRow=$((posRow+(rowSize*2)))
   for textRow in "${textRows[@]}"; do
     convert -weight bold -pointsize $((pointSize)) -fill $fontColor \
       -draw "text $currentCol,$currentRow '$textRow'" "$outputFile" "$outputFile"
@@ -78,7 +84,7 @@ do
   done
 
   bottomText="Cards Against Humanity"
-  bottomRow=$((posRow+165-row))
+  bottomRow=$((posRow+(lineSize*8)-row))
   if [ "$cardType" == "black" ]; then
     if [ "$pick" != "" ]; then
       bottomText="CAH"
@@ -96,8 +102,8 @@ do
     fi
   fi
 
-  convert -draw "image over $((posCol+42)),$((posRow-row+215)),0,0 'img/CAH_ico.png'" \
-    -weight normal -pointSize 10 -fill $fontColor -draw "text $((currentCol+33)),$((bottomRow+64)) '$bottomText'" "$outputFile" "$outputFile"
+  convert -draw "image over $((posCol+42)),$((bottomRow+(lineSize*2))),0,0 'img/CAH_ico.png'" \
+    -weight normal -pointSize 10 -fill $fontColor -draw "text $((currentCol+33)),$((bottomRow+(rowSize*3))) '$bottomText'" "$outputFile" "$outputFile"
 
   echo "page $page:$text"
   col=$((col + 1))
