@@ -51,7 +51,7 @@ do
 
   outputFile="$generatedFolder/$outputFileName-$page.jpg"
   if [ "$newPage" == "1" ]; then
-    cp $sourceImage $outputFile
+    convert -size 850x1100 xc:$cardColor "$outputFile"
     newPage=0
   fi
 
