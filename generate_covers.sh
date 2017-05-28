@@ -27,7 +27,7 @@ do
     sourceFile="$outputFile"
     if [ "$newPage" == "1" ]
     then
-       sourceFile="CAH_Blank""$page""Cards.jpg"
+       sourceFile="img/CAH_Blank""$page""Cards.jpg"
        newPage=0
     fi
 
