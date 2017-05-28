@@ -45,3 +45,11 @@ Examples:
 ```
 
 The scripts will read the files, and create a new folder "generated" with black and white cards.
+
+Samples
+=======
+
+![Black Cards](/sample/black_cards.jpg)
+
+![White Cards](/sample/white_cards.jpg)
+
