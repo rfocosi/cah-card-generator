@@ -79,19 +79,21 @@ do
 
   bottomText="Cards Against Humanity"
   bottomRow=$((posRow+165-row))
-  if [ "$pick" != "" ]; then
-    bottomText="CAH"
-    convert -fill white -draw "circle $((currentCol+158)),$((bottomRow+60)) $((currentCol+153)),$((bottomRow+50))" \
-      -weight bold -pointSize 15 -fill white -draw "text $((currentCol+105)),$((bottomRow+66)) 'PICK'" \
-      -weight bold -pointSize 18 -fill black -draw "text $((currentCol+154)),$((bottomRow+66)) '$pick'" \
+  if [ "$cardType" == "black" ]; then
+    if [ "$pick" != "" ]; then
+      bottomText="CAH"
+      convert -fill white -draw "circle $((currentCol+158)),$((bottomRow+60)) $((currentCol+153)),$((bottomRow+50))" \
+        -weight bold -pointSize 15 -fill white -draw "text $((currentCol+105)),$((bottomRow+66)) 'PICK'" \
+        -weight bold -pointSize 18 -fill black -draw "text $((currentCol+154)),$((bottomRow+66)) '$pick'" \
+        "$outputFile" "$outputFile"
+    fi
+    if [ "$draw" != "" ]; then
+      bottomText="CAH"
+      convert -fill white -draw "circle $((currentCol+158)),$((bottomRow+30)) $((currentCol+153)),$((bottomRow+20))" \
+      -weight bold -pointSize 15 -fill white -draw "text $((currentCol+95)),$((bottomRow+36)) 'DRAW'" \
+      -weight bold -pointSize 18 -fill black -draw "text $((currentCol+154)),$((bottomRow+36)) '$draw'" \
       "$outputFile" "$outputFile"
-  fi
-  if [ "$draw" != "" ]; then
-    bottomText="CAH"
-    convert -fill white -draw "circle $((currentCol+158)),$((bottomRow+30)) $((currentCol+153)),$((bottomRow+20))" \
-    -weight bold -pointSize 15 -fill white -draw "text $((currentCol+95)),$((bottomRow+36)) 'DRAW'" \
-    -weight bold -pointSize 18 -fill black -draw "text $((currentCol+154)),$((bottomRow+36)) '$draw'" \
-    "$outputFile" "$outputFile"
+    fi
   fi
 
   convert -weight normal -pointSize 10 -fill $fontColor -draw "text $((currentCol+33)),$((bottomRow+64)) '$bottomText'" "$outputFile" "$outputFile"

@@ -11,12 +11,23 @@ Card Files Format
 ```
 {text};{pick};{draw}
 ```
-Ps.: The fields `{pick}` and `{draw}` are optional
+Ps.: The fields `{pick}` and `{draw}` works only with *black cards* and are optional
 
 Examples:
+
+- black_cards.csv
 ```
-I went from _________ to _________________, all thanks to ____________________.;3;2
-Lovin' you is easy 'cause you're ______________.
+Lovin' you is easy 'cause you're ________________.
+I went from ________ to ________________, all thanks to __________________.;3;2
+For my next trick, I will pull __________ out of ____________.;2
+```
+
+- white_cards.csv
+```
+Being rich.
+Friends with benefits.
+Teaching a robot to love.
+Me time.
 ```
 
 Usage
