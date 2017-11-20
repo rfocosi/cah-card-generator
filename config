@@ -1,0 +1,14 @@
+#!/bin/sh
+
+generatedFolder="generated"
+outputFileName="CAH_cover"
+lineSize=12
+pointSize=28
+
+pageWidth=850
+pageHeight=1100
+
+cardWidth=$(( ($pageWidth - 50) / 4 ))
+cardHeight=$(( ($pageHeight - 50) / 4 ))
+
+[ ! -d "$generatedFolder" ] && mkdir -p "$generatedFolder"

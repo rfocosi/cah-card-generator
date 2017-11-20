@@ -1,0 +1,33 @@
+#!/bin/sh
+. config
+
+row=0
+col=0
+newPage=1
+
+line1="Cards"
+line2="Against"
+line3="Humanity."
+
+set "White;#ffffff;black" "Black;#231f20;white"
+pageVars="$@"
+
+for pageVar in $pageVars; do
+  page=$(echo "$pageVar" | cut -d";" -f1)
+  pageColor=$(echo "$pageVar" | cut -d";" -f2)
+  fill=$(echo "$pageVar" | cut -d";" -f3)
+
+  outputFile="$generatedFolder/$outputFileName-$page.jpg"
+  convert -size 850x1100 xc:$pageColor "$outputFile"
+  echo "Page: $page"
+  for row in {0..3}; do
+    posRow=$(( cardHeight * row ))
+    for col in {0..3}; do
+      posCol=$(( cardWidth * col ))
+
+      convert -weight bold -pointsize $((pointSize)) -fill $fill \
+        -draw "text $((posCol+42)),$((posRow+85)) '$line1' text $((posCol+42)),$((posRow+115)) '$line2' text $((posCol+42)),$((posRow+145)) '$line3'" "$outputFile" "$outputFile"
+      echo "Card: $(( (4*row) + col ))"
+    done
+  done
+done
