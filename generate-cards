@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/sh
+. config
+
 cardType=$1
 inputFile=$2
 
@@ -18,21 +20,16 @@ else
   exit -1
 fi
 
-generatedFolder="generated/$cardType"
-mkdir -p "$generatedFolder"
-outputFileName="CAH_page"
-pageWidth=850
-pageHeight=1100
+cardsFolder="$generatedFolder/$cardType"
+[ ! -d "$cardsFolder" ] && mkdir -p "$cardsFolder"
+
 lineSize=22
 pointSize=15
 rowSize=20
-cardWidth=200
-cardHeight=260
 
 page=1
 row=0
 col=0
-newPage=1
 
 while read -r line
 do
@@ -40,20 +37,18 @@ do
   pick=$(echo $line | cut -d\; -f2 -s)
   draw=$(echo $line | cut -d\; -f3 -s)
 
-  if [ "$col" == "4" ]; then
-    row=$((row+1))
+  if [ "$col" = "4" ]; then
+    row=$((row + 1))
     col=0
   fi
-  if [ "$row" == "4" ]; then
+  if [ "$row" = "4" ]; then
     page=$((page + 1))
     row=0
-    newPage=1
   fi
 
-  outputFile="$generatedFolder/$outputFileName-$page.jpg"
-  if [ "$newPage" == "1" ]; then
+  outputFile="$cardsFolder/$outputFileName-$page.jpg"
+  if [ "$row" = "0" -a "$col" = 0 ]; then
     convert -size "${pageWidth}x${pageHeight}" xc:$cardColor "$outputFile"
-    newPage=0
   fi
 
   posCol=$((cardWidth*col))
@@ -86,7 +81,7 @@ do
 
   bottomText="Cards Against Humanity"
   bottomRow=$((posRow+(lineSize*8)-row))
-  if [ "$cardType" == "black" ]; then
+  if [ "$cardType" = "black" ]; then
     if [ "$pick" != "" ]; then
       bottomText="CAH"
       convert -fill white -draw "circle $((currentCol+158)),$((bottomRow+60)) $((currentCol+153)),$((bottomRow+50))" \

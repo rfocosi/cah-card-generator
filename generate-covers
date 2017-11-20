@@ -1,15 +1,14 @@
 #!/bin/sh
 . config
 
-row=0
-col=0
-newPage=1
+lineSize=12
+pointSize=28
 
 line1="Cards"
 line2="Against"
 line3="Humanity."
 
-set "White;#ffffff;black" "Black;#231f20;white"
+set "White-Cover;#ffffff;black" "Black-Cover;#231f20;white"
 pageVars="$@"
 
 for pageVar in $pageVars; do

@@ -1,9 +1,7 @@
 #!/bin/sh
 
 generatedFolder="generated"
-outputFileName="CAH_cover"
-lineSize=12
-pointSize=28
+outputFileName="CAH"
 
 pageWidth=850
 pageHeight=1100
