@@ -1,5 +1,5 @@
-#!/bin/sh
-. config
+#!/bin/bash
+. ./config
 
 lineSize=12
 pointSize=28
@@ -8,10 +8,9 @@ line1="Cards"
 line2="Against"
 line3="Humanity."
 
-set "White-Cover;#ffffff;black" "Black-Cover;#231f20;white"
-pageVars="$@"
+pageVars=( "White-Cover;#ffffff;black" "Black-Cover;#231f20;white" )
 
-for pageVar in $pageVars; do
+for pageVar in ${pageVars[@]}; do
   page=$(echo "$pageVar" | cut -d";" -f1)
   pageColor=$(echo "$pageVar" | cut -d";" -f2)
   fill=$(echo "$pageVar" | cut -d";" -f3)

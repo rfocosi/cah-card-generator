@@ -1,5 +1,5 @@
-#!/bin/sh
-. config
+#!/bin/bash
+. ./config
 
 usage()
 {
