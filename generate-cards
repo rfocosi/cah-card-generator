@@ -1,24 +1,49 @@
 #!/bin/sh
 . config
 
-cardType=$1
-inputFile=$2
-
-if [ "$inputFile" == "" ]; then
-  cardType=""
-fi
-
-if [ "$cardType" == "black" ]; then
-  fontColor="white"
-  cardColor=#231f20
-elif [ "$cardType" == "white" ]; then
-  fontColor="black"
-  cardColor=#ffffff
-else
+usage()
+{
+  [ -n "$1" ] && echo "ERROR: $1"
   echo "Usage:"
-  echo "generate_cards.sh {black|white} {csv-file}"
+  echo "generate_cards.sh <black|white> [-p {page}] <csv-file>"
   exit -1
+}
+
+cardType=$1
+
+[ -z "$cardType" ] && usage "Missing card type <black|white>"
+shift
+
+if [ "$1" = "-p" ]; then
+  pageSel=$2
+  [ -z "$pageSel" ] && usage "Missing page number"
+  shift 2
 fi
+
+inputFile=$1
+[ -z "$inputFile" ] && usage "Missing file name"
+
+case $inputFile in
+  -*)
+  usage "Missing file name"
+  ;;
+esac
+
+[ ! -f "$inputFile" ] && usage "File not exists"
+
+case $cardType in
+  black)
+    fontColor="white"
+    cardColor=#231f20
+  ;;
+  white)
+    fontColor="black"
+    cardColor=#ffffff
+  ;;
+  *)
+  usage
+  ;;
+esac
 
 cardsFolder="$generatedFolder/$cardType"
 [ ! -d "$cardsFolder" ] && mkdir -p "$cardsFolder"
@@ -46,15 +71,19 @@ do
     row=0
   fi
 
-  outputFile="$cardsFolder/$outputFileName-$page.jpg"
+  if [ "$pageSel" != "" -a "$page" != "$pageSel" ]; then
+    [ "$page" -gt "$pageSel" ] && break
+    col=$(( col + 1 ))
+    continue
+  fi
+
   if [ "$row" = "0" -a "$col" = 0 ]; then
+    outputFile="$cardsFolder/$outputFileName-$page.jpg"
     convert -size "${pageWidth}x${pageHeight}" xc:$cardColor "$outputFile"
   fi
 
   posCol=$((cardWidth*col))
   posRow=$((cardHeight*row+lineSize))
-
-  convert -stroke $fontColor -draw "fill $cardColor rectangle $((posCol+lineSize)),$((posRow)) $((posCol+lineSize+cardWidth)),$((posRow+cardHeight))" "$outputFile" "$outputFile"
 
   l=0
   lp=0
@@ -73,6 +102,7 @@ do
 
   currentCol=$((posCol+(rowSize*2)))
   currentRow=$((posRow+(rowSize*2)))
+
   for textRow in "${textRows[@]}"; do
     convert -weight bold -pointsize $((pointSize)) -fill $fontColor \
       -draw "text $currentCol,$currentRow '$textRow'" "$outputFile" "$outputFile"
@@ -99,7 +129,10 @@ do
   fi
 
   convert -draw "image over $((posCol+42)),$((bottomRow+(lineSize*2))),0,0 'img/CAH_ico.png'" \
-    -weight normal -pointSize $((pointSize-5)) -fill $fontColor -draw "text $((currentCol+33)),$((bottomRow+(rowSize*3))) '$bottomText'" "$outputFile" "$outputFile"
+    -weight normal -pointSize $((pointSize-5)) -fill $fontColor \
+    -draw "text $((currentCol+33)),$((bottomRow+(rowSize*3))) '$bottomText'" \
+    -draw "stroke $fontColor fill transparent rectangle $((posCol+lineSize)),$((posRow)) $((posCol+lineSize+cardWidth)),$((posRow+cardHeight))" \
+    "$outputFile" "$outputFile"
 
   echo "page $page:$text"
   col=$((col + 1))
