@@ -1,0 +1,12 @@
+#!/bin/bash
+
+generatedFolder="generated"
+outputFileName="CAH"
+
+pageWidth=850
+pageHeight=1100
+
+cardWidth=$(( ($pageWidth - 50) / 4 ))
+cardHeight=$(( ($pageHeight - 50) / 4 ))
+
+[ ! -d "$generatedFolder" ] && mkdir -p "$generatedFolder"
